@@ -152,6 +152,9 @@ class Contacts
         if ($results->isSuccess) {
             $contactId = $results->getData()->id;
             if (!is_null($contact)) {
+                // PUT contacts endpoint doesn't accept uid column
+                unset($object->contact->uid);
+
                 // already exists. need to update.
                 return $this->_put('contacts/'.$contactId, [], $object, $overrideResource);
             }
